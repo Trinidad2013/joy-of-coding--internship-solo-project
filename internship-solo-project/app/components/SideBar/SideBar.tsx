@@ -91,7 +91,105 @@ const SidebarStyled = styled.nav`
     }
     h1 {
       font-size: 1.2rem;
+      display: flex;
+      flex-direction: column;
     }
+    .image,
+    h1 {
+      position: relative;
+      z-index: 1;
+    }
+
+    .image {
+      flex-shrink: 0;
+      display: inline-block;
+      overflow: hidden;
+      transition: all 0.5s ease;
+      border-radius: 100%;
+      width: 70px;
+      height: 70px;
+
+      img {
+        border-radius: 100%;
+        transition: all 0.5s ease;
+      }
+    }
+    > h1 {
+      margin-left: 1rem;
+      font-size: clamp(1.2rem, 4vw, 1.4rem);
+      line-height: 100%;
+    }
+    &:hover {
+      .profile-overlay {
+        opacity: 1;
+        border: 2px solid ${(props) => props.theme.borderColor2};
+      }
+      img {
+        transform: scale(1.1);
+      }
+    }
+  }
+  .nav-item {
+    position: relative;
+    padding: 0.6rem 1rem 0.6rem 2.1rem;
+    margin: 0.3rem 0;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    cursor: pointer;
+
+    &::after {
+      position: absolute;
+      content: "";
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 100%;
+      background-color: ${(props) => props.theme.activeNavLinkHover};
+      z-index: 1;
+      transition: all 0.3s ease-in-out;
+    }
+    &::before {
+      position: absolute;
+      content: "";
+      right: 0;
+      top: 0;
+      width: 0%;
+      height: 100%;
+      background-color: ${(props) => props.theme.colorGreenDark};
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+    }
+    a {
+      font-weight: 500;
+      transition: all 0.3s ease-in-out;
+      z-index: 2;
+    }
+
+    i {
+      display: flex;
+      align-items: center;
+      color: ${(props) => props.theme.colorIcons};
+    }
+
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+  .active {
+    background-color: ${(props) => props.theme.activeNavLink};
+
+    i,
+    a {
+      color: ${(props) => props.theme.colorIcons2};
+    }
+  }
+  .active::before {
+    width: 0.3rem;
+  }
+  > button {
+    margin: 1.5rem;
   }
 `;
 export default SideBar;
