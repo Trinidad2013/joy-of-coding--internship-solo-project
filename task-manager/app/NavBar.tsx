@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 const NavBar = () => {
   const links = [
     { label: "Dashboard", href: "/" },
-    { label: "Tasks", href: "/task" },
+    { label: "Tasks", href: "/Tasks" },
   ];
   const currentPathname = usePathname();
   return (
