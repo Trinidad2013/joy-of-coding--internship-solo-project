@@ -1,17 +1,16 @@
+import { Table } from "@radix-ui/themes";
 import React from "react";
-import { Button, Table } from "@radix-ui/themes";
-import Link from "next/link";
-import prisma from "@/prisma/client";
 import TaskStatusBadge from "../components/TaskStatusBadge";
-import delay from "delay";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import TaskActions from "./TaskActions";
 
-const TasksPage = async () => {
-  const tasks = await prisma.task.findMany();
-  await delay(2000);
+const loadingTaskPage = () => {
+  const tasks = [1, 2, 3, 4, 5, 6];
   return (
-    <div className="bg-white text-black">
+    <div>
       <TaskActions />
+
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
@@ -26,18 +25,18 @@ const TasksPage = async () => {
         </Table.Header>
         <Table.Body>
           {tasks.map((task) => (
-            <Table.Row key={task.id}>
+            <Table.Row key={task}>
               <Table.Cell>
-                {task.title}
+                <Skeleton />
                 <div className="block md:hidden">
-                  <TaskStatusBadge status={task.status} />
+                  <Skeleton />
                 </div>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <TaskStatusBadge status={task.status} />
+                <Skeleton />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                {task.createAt.toDateString()}
+                <Skeleton />
               </Table.Cell>
             </Table.Row>
           ))}
@@ -47,4 +46,4 @@ const TasksPage = async () => {
   );
 };
 
-export default TasksPage;
+export default loadingTaskPage;
