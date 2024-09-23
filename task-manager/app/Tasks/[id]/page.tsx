@@ -2,7 +2,7 @@ import TaskStatusBadge from "@/app/components/TaskStatusBadge";
 import prisma from "@/prisma/client";
 import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-
+import delay from "delay";
 import ReactMarkdown from "react-markdown";
 
 interface Props {
@@ -14,7 +14,7 @@ const TaskDetailPage = async ({ params }: Props) => {
     where: { id: parseInt(params.id) },
   });
   if (!task) notFound();
-
+  await delay(2500);
   return (
     <div>
       <Heading>{task.title}</Heading>
