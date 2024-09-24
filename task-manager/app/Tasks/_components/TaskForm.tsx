@@ -33,7 +33,8 @@ const TaskForm = ({ task }: { task?: Task }) => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setSubmitting(true);
-      await axios.post("/api/tasks", data);
+      if (task) await axios.patch("/api/tasks" + task.id, data);
+      else await axios.post("/api/tasks", data);
       router.push("/Tasks");
     } catch (error) {
       setSubmitting(false);
@@ -68,7 +69,8 @@ const TaskForm = ({ task }: { task?: Task }) => {
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
         <Button disabled={isSubmitting}>
-          Submit a new task
+          {task ? "Update Task" : "Submit a new task"}
+
           {isSubmitting && <Spinner />}
         </Button>
       </form>
