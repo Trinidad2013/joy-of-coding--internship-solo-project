@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import {z} from 'zod'
 import {PrismaClient} from '@prisma/client'
-import createTaskSchema from "@/app/validationSchemas"
+import TaskSchema from "@/app/validationSchemas"
 
 const prisma = new PrismaClient()
 
 export async function POST(request: NextRequest) {
 const body = await request.json()
-const validation = createTaskSchema.safeParse(body)
+const validation = TaskSchema.safeParse(body)
 if (!validation.success)
     return NextResponse.json(validation.error.errors, {status: 400})
 const newTask = await prisma.task.create({
