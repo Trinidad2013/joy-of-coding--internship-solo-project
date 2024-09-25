@@ -31,14 +31,16 @@ const TaskForm = ({ task }: { task?: Task }) => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log("Task data being sent:", data);
     try {
       setSubmitting(true);
-      if (task) await axios.patch("/api/tasks" + task.id, data);
+      if (task) await axios.patch(`/api/tasks/${task.id}`, data);
       else await axios.post("/api/tasks", data);
       router.push("/Tasks");
-    } catch (error) {
+      router.refresh();
+    } catch (error: any) {
       setSubmitting(false);
-      setError("An Unexpected Error Occured");
+      setError(error.response?.data?.error || "An Unexpected Error Occured");
     }
   });
 
