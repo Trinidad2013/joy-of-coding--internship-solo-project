@@ -12,7 +12,7 @@ const TaskDetails = ({ task }: { task: Task }) => {
         <TaskStatusBadge status={task.status} />
         <Text>{task.createAt.toDateString()}</Text>
       </Flex>
-      <Card className="prose" mt="4">
+      <Card className="prose max-w-full" mt="4">
         <ReactMarkdown>{task.description}</ReactMarkdown>
       </Card>
     </>
